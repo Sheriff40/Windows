@@ -1,39 +1,35 @@
 var viewDesktop = $(".desktop");
 var menu = $(".menu");
-var desktop = 
+var desktop =
 {
-    
-    height:"100vh",
-    width:"100%",
+    height: "100vh",
+    width: "100%",
     background: "yellow",
     backgroundSize: "cover",
-    render: function()
-    {
+    render: function () {
         viewDesktop.style.height = this.height;
         viewDesktop.style.width = this.width;
-        viewDesktop.style.backgroundSize = this.backgroundSize;
         viewDesktop.style.background = this.background;
+        viewDesktop.style.backgroundSize = this.backgroundSize;
     },
-    changeBg: function(value)
-    {
-        this.background = "url(" + value + ")";
+    changeBg: function (value) {
+        this.background = "url("+value+")";
     },
-    changeBgSize: function(value)
-    {
+    changeBgSize:function (value) {
         this.backgroundSize = value;
     },
-    toggelMenu: function()
-    {
+    toggelMenu: function () {
         event.preventDefault();
         menu.classList.toggle("hidden");
         menu.style.top = event.clientY + "px";
         menu.style.left = event.clientX + "px";
     }
-   
+
 }
 
-
-desktop.changeBg('https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
-desktop.changeBgSize("contain");
-viewDesktop.addEventListener("contextmenu",desktop.toggelMenu);
+viewDesktop.addEventListener("contextmenu", desktop.toggelMenu);
+viewDesktop.addEventListener("click", function(){
+    menu.classList.add("hidden");
+});
 desktop.render();
+
