@@ -31,5 +31,24 @@ viewDesktop.addEventListener("contextmenu", desktop.toggelMenu);
 viewDesktop.addEventListener("click", function(){
     menu.classList.add("hidden");
 });
+
+bootLoader();
+
+function bootLoader()
+{
+    jsonData = JSON.parse(localStorage.getItem("desktop"));
+    if(!!jsonData)
+    {
+        desktop.height = jsonData.height;
+        desktop.width = jsonData.width;
+        desktop.background = jsonData.background;
+        desktop.backgroundSize = jsonData.backgroundSize; 
+    }
+   
+}
+
 desktop.render();
 
+setInterval(() => {
+    localStorage.setItem("desktop",JSON.stringify(desktop));
+}, 2000);
