@@ -41,6 +41,38 @@ body{
     color:white;
 }
 
+.window
+{
+    background: white;
+    position: relative;
+}
+
+.icons
+{
+    padding: 10px 15px;
+    background:black;
+    width:100%;
+    margin:0px;
+    box-sizing:border-box;
+    text-align:right;
+}
+
+.icon
+{
+    color:white;
+    margin-left:5px;
+}
+
+.icon:hover
+{
+    color:orange;
+} 
+
+.clearfix
+{
+    clear:both;
+}
+
 .float-left
 {
     float:left;

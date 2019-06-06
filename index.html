@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Windows</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
     <div class="desktop">
-        <div id="div1"></div>
         <ul class="hidden menu">
             <li class="menu-bar">
                 Change Background
@@ -23,11 +24,20 @@
             </li>
             <input type="file" class="hidden fileInput" onchange="readData()">
         </ul>
-
+        <div class="window">
+                <div class="icons">
+                        <span class="icon fas fa-times"></span>
+                        <span class="icon fas fa-window-maximize"></span>
+                        <span class="icon far fa-window-restore"></span>              
+                        <span class="icon fas fa-minus"></span>
+                        <div class="clearfix"></div>
+                </div> 
+        </div>
     </div>
 </body>
 <script src = "script.js"></script>
 <script src = "desktop.js"></script>
 <script src = "menu.js"></script>
 <script src = "fileReader.js"></script>
+<script src = "window.js"></script>
 </html>
