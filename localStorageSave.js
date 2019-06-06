@@ -4,4 +4,4 @@ function save()
     localStorage.setItem("windowObject",JSON.stringify(windowObject));
 }
 
-setInterval(save,2000);
+setInterval(save,1000);
