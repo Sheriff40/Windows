@@ -1,0 +1,52 @@
+body{
+    padding:0px;
+    margin:0px;
+    position:relative;
+}
+
+.hidden
+{
+    display:none;
+}
+
+.menu
+{
+    padding:10px 0px;
+    margin:0px;
+    border:1px solid white;
+    background:black;
+    color:white;
+    position:absolute;
+}
+
+.menu li
+{
+    list-style: none;
+    margin:5px 0px;
+    padding:5px;
+}
+
+.menu li:hover
+{
+    color: orange;
+}
+
+.subMenu
+{
+    display:none;
+}
+
+.changeBgSize:hover .subMenu{
+    display:block;
+    color:white;
+}
+
+.float-left
+{
+    float:left;
+}
+
+.float-right
+{
+    float:right;
+}
