@@ -1,7 +1,11 @@
 body{
     padding:0px;
     margin:0px;
-    position:relative;
+}
+
+.desktop
+{
+    position: relative;
 }
 
 .hidden
@@ -44,7 +48,7 @@ body{
 .window
 {
     background: white;
-    position: relative;
+    position: absolute;
 }
 
 .icons
@@ -55,6 +59,7 @@ body{
     margin:0px;
     box-sizing:border-box;
     text-align:right;
+    position:absolute;
 }
 
 .icon
