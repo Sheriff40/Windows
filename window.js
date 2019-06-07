@@ -86,11 +86,14 @@ function winBootLoader()
 
 
 
-dragElement(windowView);
+elmnt = windowView;
 
-function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      elmnt.onmousedown = dragMouseDown;
+dragElement(elmnt);
+
+
+function dragElement() {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        elmnt.onmousedown = dragMouseDown;
     }
   
     function dragMouseDown(e) {
@@ -109,8 +112,9 @@ function dragElement(elmnt) {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        windowObject.top = (elmnt.offsetTop - pos2) + "px";
+        windowObject.left = (elmnt.offsetLeft - pos1) + "px";
+        windowObject.render();
     }
   
     function closeDragElement() {
@@ -118,6 +122,5 @@ function dragElement(elmnt) {
       document.onmousemove = null;
     }
  
-
 
 windowObject.render();
