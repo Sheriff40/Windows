@@ -1,7 +1,7 @@
 function save()
 {
     localStorage.setItem("desktop",JSON.stringify(desktop));
-    localStorage.setItem("windowObject",JSON.stringify(windowObject));
+    localStorage.setItem("collection",JSON.stringify(collectionObj));
 }
 
 setInterval(save,1000);

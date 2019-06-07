@@ -42,6 +42,11 @@ body{
 .window{
     background: white;
     position: absolute;
+    height: 250px;
+    width : 450px;
+    top : 200px;
+    left: 200px;
+    display:none;
 }
 
 .icons{
