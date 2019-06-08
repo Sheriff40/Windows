@@ -4,4 +4,4 @@ function save()
     localStorage.setItem("collection",JSON.stringify(collectionObj));
 }
 
-setInterval(save,2000);
+setInterval(save,1000);

@@ -20,6 +20,7 @@ function windowObject()
     this.zIndex = 0;
     this.positionTop = "";
     this.positionLeft = "";
+    this.state = "normal";
     this.reRender = function()
     {
         this.viewObject.style.height = this.height;
@@ -28,20 +29,17 @@ function windowObject()
         this.viewObject.style.left = this.left;
         this.viewObject.style.display = this.status;
         this.viewObject.style.zIndex = this.zIndex;
-       
         $(".desktop").appendChild(this.viewObject);
     }
     this.render = function()
     {
         var thisWindow = this;
-       
         this.viewObject.style.height = this.height;
         this.viewObject.style.width = this.width;
         this.viewObject.style.top = this.top;
         this.viewObject.style.left = this.left;
         this.viewObject.style.display = this.status;
         this.viewObject.style.zIndex = this.zIndex;
-       
         $(".desktop").appendChild(this.viewObject);
         this.viewObject.querySelector(".fa-window-maximize").addEventListener("click",function(){
             thisWindow.positionTop = thisWindow.top;
@@ -52,8 +50,6 @@ function windowObject()
             thisWindow.restoreWindow(); 
         });
         this.viewObject.querySelector(".fa-minus").addEventListener("click",function(){
-            thisWindow.positionTop = thisWindow.top;
-            thisWindow.positionLeft = thisWindow.left;
             thisWindow.minimizeWindow(); 
         });
         this.viewObject.querySelector(".fa-times").addEventListener("click",function(){
@@ -63,6 +59,9 @@ function windowObject()
         {
             thisWindow.zIndexValue();
         });
+        this.viewObject.onmousedown = function() {
+            dragMouseDown(thisWindow, event);
+        };
     },
     this.maximize = function()
     {
@@ -70,12 +69,28 @@ function windowObject()
             this.left = "0px";
             this.height = "100vh";
             this.width = "100vw";
+            if(this.state!="minimized")
+            {
+                this.state = "maximized";
+            }
             this.reRender();
     }
     this.restoreWindow = function()
     {
-        this.top = this.positionTop;
-        this.left = this.positionLeft;
+        if(this.state == "minimized")
+        {
+            this.top = "200px";
+            this.left = "200px";
+            this.state = "normal";
+        }
+        else if(this.state == "maximized"){
+            this.top = this.positionTop;
+            this.left = this.positionLeft;
+        }
+        else{
+            this.top = this.top;
+            this.left = this.left;
+        }
         this.height = "250px";
         this.width = "600px";
         this.reRender();
@@ -86,6 +101,7 @@ function windowObject()
         this.left = "0";
         this.height = "20px";
         this.width = "200px";
+        this.state = "minimized"
         this.reRender();
     };
     this.close=function()
@@ -127,6 +143,7 @@ cloneButton.addEventListener("click",function(){
 winBootLoader();
 function winBootLoader()
 {
+    
     jsonWinData = JSON.parse(localStorage.getItem("collection"));
     if(!!jsonWinData)
     {
@@ -137,6 +154,7 @@ function winBootLoader()
             presistWindow.height = value.height;
             presistWindow.width = value.width;
             presistWindow.zIndex = value.zIndex;
+            presistWindow.status = value.status
             var cloneWindowView = windowView.cloneNode(true);
             presistWindow.viewObject = cloneWindowView;
             presistWindow.render();
@@ -148,61 +166,38 @@ function winBootLoader()
 
 
 
+function dragMouseDown(thisWindow, e) {
+    e = e || window.event;
+    elemnt = thisWindow.viewObject;
+    thisDraggedWindow = thisWindow;
 
+    e.preventDefault();
+    //mouse position at startup
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call function when mouse moves
+    document.onmousemove = elementDrag;
+}
 
-// collectionObj.forEach(function(value)
-// {
-//     var wObject = new windowObject();
-//     wObject.top = value.top;
-//     wObject.left = value.left;
-//     wObject.height = value.height;
-//     wObject.width = value.width;
-//     wObject.zIndex = value.zIndex;
-//     var elmnt = value.viewObject;
-  
-//     dragElement(elmnt,wObject);
-// });
+function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate new cursor position
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element to the new calculated
+    elemnt.style.top = elemnt.offsetTop - pos2 + "px";
+    elemnt.style.left = elemnt.offsetLeft - pos1 + "px";
+    thisDraggedWindow.top = elemnt.style.top;
+    thisDraggedWindow.left = elemnt.style.left;
+}
 
-
-// function dragElement(elmnt,wObject) {
-//         var elmnt = elmnt;
-//         var wObject = wObject;
-//         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-//         elmnt.onmousedown = function(){
-//             dragMouseDown(elmnt,wObject);
-//         };
-//     }
-  
-//     function dragMouseDown(elmnt,wObject) {
-//       e = window.event;
-//       var elmnt = elmnt;
-//         var wObject = wObject;
-//       e.preventDefault();
-//       pos3 = e.clientX;
-//       pos4 = e.clientY;
-//       document.onmouseup = closeDragElement;
-//       document.onmousemove = function(){
-//           elementDrag(e,elmnt,wObject);
-//       };
-//     }
-  
-//     function elementDrag(elmnt,wObject) {
-//       e = window.event;
-//       e.preventDefault();
-//       pos1 = pos3 - e.clientX;
-//       pos2 = pos4 - e.clientY;
-//       pos3 = e.clientX;
-//       pos4 = e.clientY;
-//       wObject.top = (elmnt.offsetTop - pos2) + "px";
-//       wObject.left = (elmnt.offsetLeft - pos1) + "px";
-//       wObject.render();
-//     }
-  
-//     function closeDragElement() {
-//       document.onmouseup = null;
-//       document.onmousemove = null;
-//     }
- 
-
-    
+function closeDragElement() {
+    // stop moving when the mouse button is released
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
  
